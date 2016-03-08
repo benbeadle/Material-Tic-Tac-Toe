@@ -1,0 +1,16 @@
+{
+  "name": "Tic-Tac-Toe",
+  "version": "1.0.0",
+  "description": "A Node-based web app to play Tic-Tac-Toe.",
+  "author": {
+    "name": "Ben Beadle",
+    "email": "benjbeadle@gmail.com"
+  },
+  "private": true,
+  "dependencies": {
+    "express": "^4.13.4",
+    "body-parser": "^1.15.0",
+    "jade": "^1.11.0",
+    "node-sass-middleware": "^0.9.7"
+  }
+}
