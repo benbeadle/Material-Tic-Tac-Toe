@@ -11,25 +11,24 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+//Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+//Sass compiler
 app.use(require('node-sass-middleware')({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
   indentedSyntax: true,
   sourceMap: true
 }));
+//Public static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.use('/', routes);
+//Routes
 app.use('/api', api);
+app.use('/', routes);
 
-
-app.use('/', function(req, res, next) {
-	res.redirect('/');
-});
-
+//Begin the server
 app.listen(3000, function() {
-	console.log("Listening");
+	console.log("Server running. Goto http://localhost:3000 in your browser.");
 });

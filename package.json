@@ -1,7 +1,7 @@
 {
   "name": "Tic-Tac-Toe",
   "version": "1.0.0",
-  "description": "A Node-based web app to play Tic-Tac-Toe.",
+  "description": "A Node-based web app to play 2 player Tic-Tac-Toe.",
   "author": {
     "name": "Ben Beadle",
     "email": "benjbeadle@gmail.com"
@@ -12,5 +12,8 @@
     "body-parser": "^1.15.0",
     "jade": "^1.11.0",
     "node-sass-middleware": "^0.9.7"
+  },
+  "engines": {
+    "node": "4.2.3"
   }
 }
