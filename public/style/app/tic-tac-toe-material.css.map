@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "tic-tac-toe-material.css",
+	"sources": [
+		"tic-tac-toe-material.scss"
+	],
+	"mappings": "AAAA,IAAI,CAAC;EACJ,gBAAgB,EAAE,OAAQ,GAC1B",
+	"names": []
+}

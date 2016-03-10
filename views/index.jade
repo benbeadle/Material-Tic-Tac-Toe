@@ -2,5 +2,26 @@ doctype html
 html
   head
     title Let's Play Tic-Tac-Toe!
-  body
-    | Hello World!
+    meta(name="viewport", content="initial-scale=1, maximum-scale=1, user-scalable=no")
+    link(rel="stylesheet", href="/style/lib/angular-material.min.css")
+    link(rel="stylesheet", href="/style/tic-tac-toe-material.css")
+  body(ng-app="TicTacToeMaterial")
+    div(ng-controller="GameController")
+      md-card
+        md-toolbar
+          div.md-toolbar-tools
+            h2
+              span Tic Tac Toe
+
+
+    script(src="/js/lib/angular.min.js")
+    script(src="/js/lib/angular-aria.min.js")
+    script(src="/js/lib/angular-animate.min.js")
+    script(src="/js/lib/angular-material.min.js")
+    script(src="/js/TicTacToeMaterial.js")
+    script(src="/js/GameController.js")
+
+    script(type="text/javascript").
+      setTimeout(function() {
+        window.location.reload();
+      }, 1000);
