@@ -1,1 +1,9 @@
 node_modules
+
+# Logs
+logs
+*.log
+
+config.codekit
+
+*.sass-cache*

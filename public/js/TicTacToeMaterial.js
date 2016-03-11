@@ -1,5 +1,21 @@
 (function() {'use strict';
 
-var linqueApp = angular.module('TicTacToeMaterial', ['ngMaterial']);
+var aDependencies = ['ngMaterial', 'LocalStorageModule'];
+var ticTacToeApp = angular.module('TicTacToeMaterial', aDependencies);
+
+ticTacToeApp.config(['$mdThemingProvider', function($mdThemingProvider) {
+	$mdThemingProvider.theme('default')
+		.primaryPalette('blue-grey')
+		.accentPalette('amber');
+}]);
+
+ticTacToeApp.config(['$mdIconProvider', function($mdIconProvider) {
+	$mdIconProvider.defaultIconSet('/style/lib/mdi.svg');
+}]);
+
+ticTacToeApp.config(['localStorageServiceProvider', function(localStorageServiceProvider) {
+	localStorageServiceProvider
+		.setPrefix('ticTacToeMaterial')
+}]);
 
 })();

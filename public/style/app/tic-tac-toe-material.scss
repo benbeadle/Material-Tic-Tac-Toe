@@ -1,3 +1,129 @@
 body {
 	background-color: #EDEDED;
+	height: 100%;
+}
+
+.ttt-container {
+	height: 100%;
+
+	.ttt-card {
+		width: 400px;
+		max-width: 100%;
+		padding-bottom: 10px;
+
+		.toolbar-title {
+			margin: auto;
+		}
+
+		.setup-content {
+			.play-intro {
+				text-align: center;
+			}
+
+			.avatar-menu {
+				//The menu is higher than the name inputs, so offset it.
+				margin-top: 8px;
+
+				//This is the icon that mimics the md-select drop down arrow.
+				//This css was taken from angular material.
+				.dropdown-icon {
+					width: 24px;
+					text-align: end;
+					margin: 0 4px;
+
+					&:after {
+						display: block;
+						content: '\25BC';
+						position: relative;
+						speak: none;
+						transform: scaleY(.6) scaleX(1);
+						opacity: 0.26;
+					}
+				}
+			}
+		}
+	}
+
+	.game-content {
+
+		.player-tab-container {
+			position: relative;
+			width: 100%;
+
+			.players-tabs {
+				width: 100%;
+
+				.player-name {
+					overflow: hidden;
+    				text-overflow: ellipsis;
+    				white-space: nowrap;
+				}
+			}
+
+			.player-tab-overlay {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 1;
+			}
+		}
+
+		.player-turn {
+			text-align: center;
+			width: 100%;
+			font-size: 12px;
+			opacity: 0.65;
+			font-style: italic;
+			margin: 10px 0 25px 0;
+
+			.name {
+				font-weight: bold;
+			}
+		}
+
+		.board-grid {
+			width: 100%;
+			max-width: 300px;
+
+			.board-tile {
+
+				&.border-right {
+					border-right: 1px solid rgba(0,0,0,0.12);
+				}
+				&.border-bottom {
+					border-bottom: 1px solid rgba(0,0,0,0.12);
+				}
+
+				.tile-button {
+					width: 100%;
+					height: 100%;
+
+					.md-button {
+						margin: 0 !important;
+						width: 100%;
+						height: 100%;
+					}
+
+					md-icon {
+						display: none;
+						opacity: 0.26;
+					}
+
+					&:hover {
+						md-icon {
+							display: block;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.creator {
+		margin-top: 10px;
+		opacity: 0.46;
+	}
+
 }

@@ -1,4 +1,76 @@
 body {
-  background-color: #EDEDED; }
+  background-color: #EDEDED;
+  height: 100%; }
+
+.ttt-container {
+  height: 100%; }
+  .ttt-container .ttt-card {
+    width: 400px;
+    max-width: 100%;
+    padding-bottom: 10px; }
+    .ttt-container .ttt-card .toolbar-title {
+      margin: auto; }
+    .ttt-container .ttt-card .setup-content .play-intro {
+      text-align: center; }
+    .ttt-container .ttt-card .setup-content .avatar-menu {
+      margin-top: 8px; }
+      .ttt-container .ttt-card .setup-content .avatar-menu .dropdown-icon {
+        width: 24px;
+        text-align: end;
+        margin: 0 4px; }
+        .ttt-container .ttt-card .setup-content .avatar-menu .dropdown-icon:after {
+          display: block;
+          content: '\25BC';
+          position: relative;
+          speak: none;
+          transform: scaleY(0.6) scaleX(1);
+          opacity: 0.26; }
+  .ttt-container .game-content .player-tab-container {
+    position: relative;
+    width: 100%; }
+    .ttt-container .game-content .player-tab-container .players-tabs {
+      width: 100%; }
+      .ttt-container .game-content .player-tab-container .players-tabs .player-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+    .ttt-container .game-content .player-tab-container .player-tab-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1; }
+  .ttt-container .game-content .player-turn {
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+    opacity: 0.65;
+    font-style: italic;
+    margin: 10px 0 25px 0; }
+    .ttt-container .game-content .player-turn .name {
+      font-weight: bold; }
+  .ttt-container .game-content .board-grid {
+    width: 100%;
+    max-width: 300px; }
+    .ttt-container .game-content .board-grid .board-tile.border-right {
+      border-right: 1px solid rgba(0, 0, 0, 0.12); }
+    .ttt-container .game-content .board-grid .board-tile.border-bottom {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+    .ttt-container .game-content .board-grid .board-tile .tile-button {
+      width: 100%;
+      height: 100%; }
+      .ttt-container .game-content .board-grid .board-tile .tile-button .md-button {
+        margin: 0 !important;
+        width: 100%;
+        height: 100%; }
+      .ttt-container .game-content .board-grid .board-tile .tile-button md-icon {
+        display: none;
+        opacity: 0.26; }
+      .ttt-container .game-content .board-grid .board-tile .tile-button:hover md-icon {
+        display: block; }
+  .ttt-container .creator {
+    margin-top: 10px;
+    opacity: 0.46; }
 
 /*# sourceMappingURL=tic-tac-toe-material.css.map */
