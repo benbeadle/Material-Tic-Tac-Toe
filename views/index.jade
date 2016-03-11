@@ -7,14 +7,16 @@ html
     link(type="text/css", rel="stylesheet", href="/style/app/tic-tac-toe-material.css")
   body(ng-app="TicTacToeMaterial")
     div.ttt-container(ng-controller="GameController", layout="column", layout-align="center center", ng-cloak)
-      md-card.ttt-card
+      md-card.ttt-card(layout="column")
         md-toolbar
           div.md-toolbar-tools
             h2.toolbar-title
-              span Let's Play Tic-Tac-Toe!
+              span Let's Play Tic-Tac-Toe! {{game.state}}
+
+        md-progress-linear.game-verifying(md-mode="indeterminate", ng-class="game.state == 'verify' ? 'verify': ''")
 
         //The setup content
-        md-card-content.setup-content(layout="column", ng-if="GAME.state == 'setup'")
+        md-card-content.setup-content(layout="column", ng-if="game.state == 'setup'")
           md-content
             p.play-intro Choose an avatar and name for both players.
           each proper, val in {'one':'One','two':'Two'}
@@ -22,43 +24,46 @@ html
               md-menu.avatar-menu
                 md-button(aria-label="Player #{proper}'s Avatar", ng-click="$mdOpenMenu($event)")
                   div(layout="row")
-                    md-icon(md-menu-origin, md-svg-icon="{{ GAME.players.#{val}.avatar }}")
+                    md-icon(md-menu-origin, md-svg-icon="{{ game.players.#{val}.avatar }}")
                     span.dropdown-icon
                 md-menu-content(width="6")
                   md-grid-list(md-cols="6", md-gutter="1em", md-row-height="1:1")
                     md-grid-tile(ng-repeat="avatar in avatarList")
-                      md-button.md-icon-button(md-no-focus-style, ng-click="changeAvatar('#{val}', avatar, $event)")
+                      md-button.md-icon-button(md-no-focus-style="true", ng-click="changeAvatar('#{val}', avatar, $event)")
                         md-icon(md-svg-icon="{{ avatar }}")
               md-input-container(flex)
                 label Player #{proper}'s Name
-                input(ng-model="GAME.players.#{val}.name", ng-keyup="nameKeyUp('#{val}', GAME.players.#{val}.name, $event)")
-          md-button.md-primary.md-raised(ng-disabled="!GAME.isReady()", ng-click="startGame()") Let's Play!
+                input(ng-model="game.players.#{val}.name", ng-keyup="nameKeyUp('#{val}', game.players.#{val}.name, $event)")
+          md-button.md-primary.md-raised(ng-disabled="!game.isReady()", ng-click="startGame()") Let's Play!
 
         //The game content
-        md-card-content.game-content(layout="column", layout-align="start center", ng-if="GAME.state == 'play'")
+        md-card-content.game-content(id="gameContent", layout="column", layout-align="start center", ng-if="game.state != 'setup'")
           div.player-tab-container
-            md-tabs.players-tabs(md-selected="GAME.currentPlayerIndex", md-no-ink, md-stretch-tabs="always", md-center-tabs="true", md-no-pagination="true")
+            md-tabs.players-tabs(md-selected="game.currentPlayerIndex", md-no-ink, md-stretch-tabs="always", md-center-tabs="true", md-no-pagination="true")
               each val in ['one', 'two']
                 md-tab
                   div(layout="row", layout-align="space-around center")
-                    md-icon.hide-xs(md-svg-icon="{{ GAME.players.#{val}.avatar }}")
-                    div.player-name(flex) {{ GAME.players.#{val}.name }}
+                    md-icon.hide-xs(md-svg-icon="{{ game.players.#{val}.avatar }}")
+                    div.player-name(flex) {{ game.players.#{val}.name }}
             div.player-tab-overlay
-          div.player-turn
-            span.name {{ GAME.currentPlayer.name }}
+          div.player-turn(ng-class="game.state == 'complete' ? 'winner' : ''")
+            span.name {{ game.currentPlayer.name }}
             span , make your move!
-          md-grid-list.board-grid(md-cols="{{ GAME.sideLength }}", md-gutter="0px", md-row-height="1:1")
-            md-grid-tile.board-tile(ng-repeat="tile in GAME.board track by $index", ng-class="GAME.boardClasses[$index]", ng-switch="tile == ''")
+          md-grid-list.board-grid(md-cols="{{ game.sideLength }}", md-gutter="0px", md-row-height="1:1")
+            md-grid-tile.board-tile(ng-repeat="tile in game.board track by $index", ng-class="game.boardClasses[$index]", ng-switch="tile == ''")
               div.tile-button(ng-switch-when="true")
-                md-button.md-icon-button(md-no-focus-style, aria-label="Tile", ng-click="GAME.move($index)")
-                  md-icon(md-svg-icon="{{ GAME.currentPlayer.avatar }}")
+                md-button(md-no-focus-style, aria-label="Tile", ng-click="makeMove($index, $event)")
+                  md-icon(md-svg-icon="{{ game.currentPlayer.avatar }}")
               md-icon.tile-icon(ng-switch-default, md-svg-icon="{{ tile }}")
-          div Hey!
 
       div.md-caption.creator
         span Made with &#10084; by&nbsp;
         span
           a(href="https://twitter.com/benbeadle", target="_blank") @benbeadle
+        br
+        span See how I was made on&nbsp;
+        span
+          a(href="https://github.com/benbeadle/Material-Tic-Tac-Toe", target="_blank") Github
 
 
     script(type="text/javascript", src="/js/lib/angular.min.js")

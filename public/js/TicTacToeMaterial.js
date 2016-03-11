@@ -5,7 +5,7 @@ var ticTacToeApp = angular.module('TicTacToeMaterial', aDependencies);
 
 ticTacToeApp.config(['$mdThemingProvider', function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
-		.primaryPalette('blue-grey')
+		.primaryPalette('deep-orange')
 		.accentPalette('amber');
 }]);
 

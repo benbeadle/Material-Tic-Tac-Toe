@@ -1,7 +1,7 @@
 (function() {'use strict';
 
-var aGameInjects = ['$scope', '$timeout', 'GAME', 'localStorageService'];
-var GameController = function($scope, $timeout, GAME, localStorageService) {
+var aGameInjects = ['$scope', '$timeout', '$mdToast', '$mdDialog', 'GAME', 'localStorageService'];
+var GameController = function($scope, $timeout, $mdToast, $mdDialog, GAME, localStorageService) {
 
 	//The list of possible avatars for players to choose from.
 	var POSSIBLE_AVATARS = [
@@ -12,9 +12,11 @@ var GameController = function($scope, $timeout, GAME, localStorageService) {
 		'brightness-5', 'emoticon-poop', 'music-note', 'star' //objects
 	];
 
+	//The actual game
+	var game = new GAME();
 
-	//The GAME service we make available to the scope for easy access.
-	$scope.GAME = GAME;
+	//Make available to the scope for easy access.
+	$scope.game = game;
 
 	//The list of avatars for the menu.
 	//The menu list does NOT include selected player's avatars. Since X and O
@@ -24,9 +26,9 @@ var GameController = function($scope, $timeout, GAME, localStorageService) {
 	//The GAME service fetches names and avatars to local storage.
 	//This is a check to make sure the player's avatars didn't end up
 	//being the same. If they were, we set player two's avatar to the next one.
-	if(GAME.players["one"]["avatar"] === GAME.players["two"]["avatar"]) {
-		var sNextAvatar = getNextAvatar(GAME.players["two"]["avatar"]);
-		GAME.players["two"]["avatar"] = sNextAvatar;
+	if(game.players["one"]["avatar"] === game.players["two"]["avatar"]) {
+		var sNextAvatar = getNextAvatar(game.players["two"]["avatar"]);
+		game.players["two"]["avatar"] = sNextAvatar;
 		localStorageService.set('player.two.avatar', sNextAvatar);
 	}
 
@@ -41,35 +43,34 @@ var GameController = function($scope, $timeout, GAME, localStorageService) {
 		if(ev.keyCode !== 13) { return; }
 
 		//Make sure both players have a name
-		if(!GAME.isReady()) {
+		if(!game.isReady()) {
 			return;
 		}
 
-		GAME.startGame();
+		game.startGame();
 	};
 
 	$scope.startGame = function() {
-		GAME.startGame();
-		console.log(GAME.state);
+		game.startGame();
 	};
 
 
 	//Called when they want to change their avatar.
 	$scope.changeAvatar = function(player, avatar, ev) {
 		//Make sure the avatar is different.
-		if(GAME.players[player]["avatar"] === avatar) { return; }
+		if(game.players[player]["avatar"] === avatar) { return; }
 
 		//Set their new avatar
-		GAME.players[player]["avatar"] = avatar;
+		game.players[player]["avatar"] = avatar;
 		localStorageService.set('player.' + player + '.avatar', avatar);
 
 		//If the other player's avatar is this avatar, then change it.
 		//This shouldn't happen since avatarList doesn't include selected
 		//avatars - but just in case.
 		var sOtherPlayer = (player === "one" ? "two" : "one");
-		if(GAME.players[sOtherPlayer]["avatar"] === avatar) {
+		if(game.players[sOtherPlayer]["avatar"] === avatar) {
 			//Select this avatar for the other player
-			GAME.players[sOtherPlayer]["avatar"] = getNextAvatar(avatar);
+			game.players[sOtherPlayer]["avatar"] = getNextAvatar(avatar);
 		}
 
 		//Now reset the avatar list to remove selected ones.
@@ -80,12 +81,63 @@ var GameController = function($scope, $timeout, GAME, localStorageService) {
 		}, 250);
 	};
 
+	$scope.makeMove = function($index, ev) {
+		var iLastPlayerIndex = game.move($index);
+
+		//Check for the winner asynchronously.
+		//Everytime we make a move, the UI is updated.
+		$timeout(function() {
+			var winner = game.checkWinner(iLastPlayerIndex, $index);
+
+			//If there was a winner, then when it's verified, show the message
+			if(winner) {
+				winner.then(showWinner);
+			}
+		});
+	};
+
+	//Called when there's a winner
+	function showWinner(winner) {
+
+		var sMsg = "Cat got your tongue?";
+		if(winner.index !== -1) {
+			sMsg = "And the winner is..." + winner.player.name + "! Congrats!";
+		}
+
+		$mdToast.show(
+			$mdToast.simple()
+				.textContent(sMsg)
+				.hideDelay(5000)
+				.parent(document.getElementById("gameContent"))
+				.position("left right bottom")
+		).then(function() {
+			playAgain();
+		});
+	}
+
+	function playAgain() {
+		$mdDialog.show(
+			$mdDialog.confirm()
+				.title("Play Another Round?")
+				.textContent("Play again for a rematch, or start a new game!")
+				.ok("Play Again")
+				.cancel("New Game")
+		).then(function() {
+			//Play again
+			game.playAgain();
+		}, function() {
+			//New game
+			game = new GAME();
+			$scope.game = game;
+		});
+	}
+
 	//Returns the list of avatars that are not currently selected.
 	function availableAvatars() {
 		return POSSIBLE_AVATARS.filter(function(avatar) {
 			return(
-				(avatar !== GAME.players["one"]["avatar"]) &&
-				(avatar !== GAME.players["two"]["avatar"])
+				(avatar !== game.players["one"]["avatar"]) &&
+				(avatar !== game.players["two"]["avatar"])
 			);
 		});
 	}
