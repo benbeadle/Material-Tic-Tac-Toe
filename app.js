@@ -22,6 +22,6 @@ app.use('/api', api);
 app.use('/', routes);
 
 //Begin the server
-app.listen(3000, function() {
-	console.log("Server running. Goto http://localhost:3000 in your browser.");
+app.listen(8080, function() {
+	console.log("Server running. Goto http://localhost:8080 in your browser.");
 });
