@@ -27,7 +27,7 @@ npm update
 
 Run the app:
 ```bash
-node app.js
+npm start
 ```
 
 Open your browser and point it to [http://localhost:8080](http://localhost:8080)

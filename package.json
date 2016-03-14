@@ -14,5 +14,9 @@
   },
   "engines": {
     "node": "4.2.3"
-  }
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "main": "app.js"
 }
