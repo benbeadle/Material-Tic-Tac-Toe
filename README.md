@@ -30,7 +30,7 @@ Run the app:
 npm start
 ```
 
-Open your browser and point it to [http://localhost:8080](http://localhost:8080)
+Open your browser and point it to [http://localhost:3000](http://localhost:3000)
 
 ## <a name="develop"></a> Develop
 
