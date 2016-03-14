@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var sassMiddleware = require('node-sass-middleware');
 
 var routes = require('./routes/index');
 var api = require('./routes/api');
@@ -15,13 +14,6 @@ app.set('view engine', 'jade');
 //Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-//Sass compiler
-app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: false,
-  sourceMap: true
-}));
 //Public static folder
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -27,7 +27,7 @@ html
                     md-icon(md-menu-origin, md-svg-icon="{{ game.players.#{val}.avatar }}")
                     span.dropdown-icon
                 md-menu-content(width="6")
-                  md-grid-list(md-cols="6", md-gutter="1em", md-row-height="1:1")
+                  md-grid-list.avatar-grid(md-cols="6", md-gutter="1em", md-row-height="1:1")
                     md-grid-tile(ng-repeat="avatar in avatarList")
                       md-button.md-icon-button(md-no-focus-style="true", ng-click="changeAvatar('#{val}', avatar, $event)")
                         md-icon(md-svg-icon="{{ avatar }}")
