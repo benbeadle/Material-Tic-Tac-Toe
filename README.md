@@ -1,6 +1,6 @@
 # Material Tic-Tac-Toe
 
-A Material Design twist on a popular childhood game. You can check out the [demo](http://tictactoe-benbeadle.rhcloud.com) to see it in action.
+A Material Design twist on a popular childhood game. You can check out the [demo](https://tictactoe-benbeadle.rhcloud.com) to see it in action.
 
 Quick Links:
 
