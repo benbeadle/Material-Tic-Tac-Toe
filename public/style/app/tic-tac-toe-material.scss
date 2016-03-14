@@ -52,6 +52,7 @@ body {
 
 	.game-content {
 		overflow: auto;
+		min-height: 400px;
 
 		.player-tab-container {
 			position: relative;
